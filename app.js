@@ -5,6 +5,7 @@ const path = require("node:path");
 const assetsPath = path.join(__dirname, "public");
 const PORT = process.env.PORT || 3000;
 const itemsRouter = require("./routes/itemsRouter");
+const categoriesRouter = require("./routes/categoriesRouter");
 
 app.use(express.static(assetsPath));
 
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/items", itemsRouter);
+app.use("/categories", categoriesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

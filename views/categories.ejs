@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="./styles.css" /> -->
+    <title><%= title %>></title>
+  </head>
+  <body>
+    <%- include('./partials/header.ejs')%> <% if (categories) { %>
+    <ul>
+      <% categories.map(category => { %>
+      <li>
+        <h3><%= category.name %></h3>
+        <a href="/categories/<%= category.id %>">View category</a>
+      </li>
+      <% })%>
+    </ul>
+    <% } %>
+  </body>
+</html>
