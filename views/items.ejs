@@ -3,15 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title><%= title %>></title>
   </head>
   <body>
-    <% if (items) { %>
+    <%- include('./partials/header.ejs')%> <% if (items) { %>
     <ul>
       <% items.map(item => { %>
       <li>
         <h3><%= item.name %></h3>
         <p><%= item.description%></p>
+        <a href="/items/<%= item.id %>">View item</a>
       </li>
       <% })%>
     </ul>

@@ -23,4 +23,4 @@ to show an individual item
 
 
 EXTRA:
-/search (in nav bar)
+/items?search=asdf SEARCH in nav bar

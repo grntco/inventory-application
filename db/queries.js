@@ -22,8 +22,7 @@ async function getAllCategories() {
 
 // generic
 async function getRecord(table, id) {
-  const { rows } = await pool.query("SELECT * FROM $1 WHERE id = $2", [
-    table,
+  const { rows } = await pool.query(`SELECT * FROM ${table} WHERE id = $1`, [
     id,
   ]);
   return rows[0];
