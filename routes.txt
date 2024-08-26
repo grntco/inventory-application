@@ -10,10 +10,17 @@ then either
 to show all items in that category
 
 
-ITEM ROUTE
+ITEMS ROUTE
+one items view for all, by category, by search
 /items - all items
 
 then either
 /item/:id
 /items/?itemId=id
 to show an individual item
+
+
+
+
+EXTRA:
+/search (in nav bar)

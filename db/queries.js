@@ -1,0 +1,37 @@
+const pool = require("./pool");
+
+async function getAllItems() {
+  const { rows } = await pool.query("SELECT * FROM items");
+  return rows;
+}
+
+async function getItemsByCategory(categoryId) {
+  const { rows } = await pool.query(
+    "SELECT * FROM items WHERE categoryId = $1",
+    [categoryId]
+  );
+  return rows;
+}
+
+// getItemsBySearch(query)
+
+async function getAllCategories() {
+  const { rows } = await pool.query("SELECT * FROM categories");
+  return rows;
+}
+
+// generic
+async function getRecord(table, id) {
+  const { rows } = await pool.query("SELECT * FROM $1 WHERE id = $2", [
+    table,
+    id,
+  ]);
+  return rows[0];
+}
+
+module.exports = {
+  getAllItems,
+  getItemsByCategory,
+  getAllCategories,
+  getRecord,
+};
