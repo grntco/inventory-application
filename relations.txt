@@ -1,0 +1,20 @@
+Categories
+- id
+- name
+- description
+- image
+
+    Ideas: 
+        - Star Wars
+        - City
+        - Space
+        - Superheroes
+
+Items
+- id
+- name
+- description
+- price
+- quantity
+- image
+- categoryId
