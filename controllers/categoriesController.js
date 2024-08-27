@@ -11,3 +11,14 @@ exports.singleCategoryGet = async (req, res) => {
   const items = await db.getItemsByCategory(id);
   res.render("items", { title: category.name, items });
 };
+
+exports.createCategoryGet = async (req, res) => {
+  res.render("createCategory", { title: "Add New Category" });
+};
+
+exports.createCategoryPost = async (req, res) => {
+  // remember to add other inputs later
+  const { name } = req.body;
+  await db.insertCategory(name);
+  res.redirect("/categories");
+};
