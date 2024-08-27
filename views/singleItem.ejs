@@ -10,5 +10,7 @@
     <%-include('./partials/header.ejs') %>
     <h1><%= item.name %></h1>
     <p><%= item.description%></p>
+    <a href="/items/<%= item.id %>/update">Update item</a>
+    <!-- <a href="/items/<% //item.id %>/delete"></a> -->
   </body>
 </html>

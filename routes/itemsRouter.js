@@ -6,5 +6,7 @@ itemsRouter.get("/", itemsController.allItemsGet);
 itemsRouter.get("/new", itemsController.createItemGet);
 itemsRouter.post("/new", itemsController.createItemPost);
 itemsRouter.get("/:id", itemsController.singleItemGet);
+itemsRouter.get("/:id/update", itemsController.updateItemGet);
+itemsRouter.post("/:id/update", itemsController.updateItemPost);
 
 module.exports = itemsRouter;

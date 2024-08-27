@@ -20,6 +20,14 @@ async function insertItem(name, description, category_id) {
   );
 }
 
+async function updateItem(id, data) {
+  const { name, description, category_id } = data;
+  await pool.query(
+    "UPDATE items SET name = $2, description = $3, category_id = $4 WHERE id = $1",
+    [id, name, description, category_id]
+  );
+}
+
 // getItemsBySearch(query)
 
 async function getAllCategories() {
@@ -43,6 +51,7 @@ module.exports = {
   getAllItems,
   getItemsByCategory,
   insertItem,
+  updateItem,
   getAllCategories,
   insertCategory,
   getRecord,

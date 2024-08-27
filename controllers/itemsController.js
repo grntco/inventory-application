@@ -20,12 +20,26 @@ exports.itemsByCategoryGet = async (req, res) => {
 
 exports.createItemGet = async (req, res) => {
   const categories = await db.getAllCategories();
-  res.render("createItem", { title: "Add New Item", categories });
+  res.render("createItem", { title: "Add Item", categories });
 };
 
 exports.createItemPost = async (req, res) => {
   // remember to add other inputs later
   const { name, description, category_id } = req.body;
   await db.insertItem(name, description, category_id);
+  res.redirect("/items");
+};
+
+exports.updateItemGet = async (req, res) => {
+  const { id } = req.params;
+  const item = await db.getRecord("items", id);
+  const categories = await db.getAllCategories();
+  res.render("createItem", { title: "Update Item", categories, item });
+};
+
+exports.updateItemPost = async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  await db.updateItem(id, data);
   res.redirect("/items");
 };
