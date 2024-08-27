@@ -47,6 +47,10 @@ async function getRecord(table, id) {
   return rows[0];
 }
 
+async function deleteRecord(table, id) {
+  await pool.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
+}
+
 module.exports = {
   getAllItems,
   getItemsByCategory,
@@ -55,4 +59,5 @@ module.exports = {
   getAllCategories,
   insertCategory,
   getRecord,
+  deleteRecord,
 };

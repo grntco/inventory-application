@@ -11,6 +11,8 @@
     <h1><%= item.name %></h1>
     <p><%= item.description%></p>
     <a href="/items/<%= item.id %>/update">Update item</a>
-    <!-- <a href="/items/<% //item.id %>/delete"></a> -->
+    <form action="/items/<%= item.id %>/delete" method="POST">
+      <button type="submit">Delete</button>
+    </form>
   </body>
 </html>
