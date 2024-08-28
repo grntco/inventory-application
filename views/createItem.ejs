@@ -9,14 +9,13 @@
   <body>
     <%- include('./partials/header.ejs')%>
     <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST">
-     <input type="text" name="name" id="name" placeholder="Name" value="<%= item
-      ? item.name : "" %>"/>
+     <input type="text" name="name" id="name" placeholder="Name" value="<%= item?.name || '' %>"/>
       <input type="text" name="description"
-      id="description" placeholder="Description" value="<%= item ?
-      item.description : "" %>" /> <% if (categories) { %>
+      id="description" placeholder="Description" value="<%= item?.description || '' %>" /> 
+      <% if (categories) { %>
       <select name="category_id" id="category_id">
         <% categories.map(category => { %>
-        <option <%= item.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
+        <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
         <% })%>
       </select>
       <% } %>

@@ -39,6 +39,11 @@ async function insertCategory(name) {
   await pool.query("INSERT INTO categories (name) VALUES ($1)", [name]);
 }
 
+async function updateCategory(id, data) {
+  const { name } = data;
+  await pool.query("UPDATE categories SET name = $2 WHERE id = $1", [id, name]);
+}
+
 // generic
 async function getRecord(table, id) {
   const { rows } = await pool.query(`SELECT * FROM ${table} WHERE id = $1`, [
@@ -58,6 +63,7 @@ module.exports = {
   updateItem,
   getAllCategories,
   insertCategory,
+  updateCategory,
   getRecord,
   deleteRecord,
 };

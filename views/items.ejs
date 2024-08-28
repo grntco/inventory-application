@@ -7,8 +7,13 @@
     <title><%= title %></title>
   </head>
   <body>
-    <%- include('./partials/header.ejs')%> <% if (items) { %>
+    <%- include('./partials/header.ejs')%>
+    <h1><%= title %></h1>
+    <% if (items) { %>
     <a href="/items/new">Add item</a>
+    <% } %> <% if (category) { %>
+    <a href="/categories/<%= category.id %>/update">Update category</a>
+    <% } %> <% if (items) { %>
     <ul>
       <% items.map(item => { %>
       <li>

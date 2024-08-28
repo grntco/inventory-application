@@ -8,8 +8,17 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
-    <form action="/categories/new" method="POST">
-      <input type="text" name="name" id="name" placeholder="Name" />
+    <form
+      action="/categories/<%= category ? `${category.id}/update` : 'new'%>"
+      method="POST"
+    >
+      <input
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Name"
+        value="<%= category?.name ?? '' %>"
+      />
       <!-- <input
         type="text"
         name="description"

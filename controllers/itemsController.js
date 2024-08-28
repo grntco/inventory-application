@@ -2,7 +2,7 @@ const db = require("../db/queries");
 
 exports.allItemsGet = async (req, res) => {
   const items = await db.getAllItems();
-  res.render("items", { title: "All Items", items });
+  res.render("items", { title: "All Items", items, category: null });
 };
 
 exports.singleItemGet = async (req, res) => {
@@ -20,7 +20,7 @@ exports.itemsByCategoryGet = async (req, res) => {
 
 exports.createItemGet = async (req, res) => {
   const categories = await db.getAllCategories();
-  res.render("createItem", { title: "Add Item", categories });
+  res.render("createItem", { title: "Add Item", categories, item: null });
 };
 
 exports.createItemPost = async (req, res) => {
