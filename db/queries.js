@@ -13,10 +13,12 @@ async function getItemsByCategory(category_id) {
   return rows;
 }
 
-async function insertItem(name, description, category_id) {
+async function insertItem(data) {
+  const { name, description, price, quantity, image, category_id } = data;
+  const values = [name, description, price, quantity, image, category_id];
   await pool.query(
-    "INSERT INTO items (name, description, category_id) VALUES($1, $2, $3)",
-    [name, description, category_id]
+    "INSERT INTO items (name, description, price, quantity, image, category_id) VALUES($1, $2, $3, $4, $5, $6)",
+    values
   );
 }
 

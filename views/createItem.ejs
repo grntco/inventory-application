@@ -8,19 +8,22 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
-    <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST">
+    <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data">
      <input type="text" name="name" id="name" placeholder="Name" value="<%= item?.name || '' %>"/>
       <input type="text" name="description"
       id="description" placeholder="Description" value="<%= item?.description || '' %>" /> 
+      <input type="text" name="price" placeholder="Price" value="<%= item?.price || '' %>"/>
+      <input type="number" name="quantity" placeholder="Quantity" value="<% item?.quantity || '' %>">
+      <label for="image">Upload image:</label>
+      <input type="file" name="image" accept=".jpg, .jpeg, .png">
       <% if (categories) { %>
-      <select name="category_id" id="category_id">
-        <option selected disabled value="">--Category--</option>
-        <% categories.map(category => { %>
-        <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
-        <% })%>
-      </select>
+        <select name="category_id" id="category_id">
+          <option selected disabled value="">--Category--</option>
+          <% categories.map(category => { %>
+          <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
+          <% })%>
+        </select>
       <% } %>
-      <!-- <input type="file"> -->
       <button type="submit"><%= item ? "Update" : "Done" %></button>
     </form>
   </body>

@@ -1,4 +1,9 @@
 const db = require("../db/queries");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
+
+const upload = multer({ dest: "uploads/" }); // Temporary storage
 
 exports.allItemsGet = async (req, res) => {
   const items = await db.getAllItems();
@@ -23,12 +28,25 @@ exports.createItemGet = async (req, res) => {
   res.render("createItem", { title: "Add Item", categories, item: null });
 };
 
-exports.createItemPost = async (req, res) => {
-  // remember to add other inputs later
-  const { name, description, category_id } = req.body;
-  await db.insertItem(name, description, category_id);
-  res.redirect("/items");
-};
+exports.createItemPost = [
+  upload.single("image"),
+  async (req, res) => {
+    const data = req.body;
+    console.log(req.file);
+    if (req.file) {
+      const targetDir = path.join(__dirname, "..", "public", "images");
+      const targetPath = path.join(targetDir, req.file.originalname);
+
+      fs.mkdirSync(targetDir, { recursive: true });
+      fs.renameSync(req.file.path, targetPath);
+
+      data.image = path.join("/", "images", req.file.originalname);
+    }
+
+    await db.insertItem(data);
+    res.redirect("/items");
+  },
+];
 
 exports.updateItemGet = async (req, res) => {
   const { id } = req.params;

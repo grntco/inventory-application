@@ -18,16 +18,19 @@ const SQL = `
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         name VARCHAR ( 100 ),
         description VARCHAR ( 255 ),
+        price NUMERIC ( 10, 2 ),
+        quantity INTEGER,
+        image VARCHAR ( 100 ),
         category_id INTEGER,
         FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
     );
 
-    INSERT INTO items (name, description, category_id)
+    INSERT INTO items (name, description, price, quantity, category_id)
     VALUES 
-        ('Schoolbus', 'Create a schoolbus!', 1),
-        ('Death Star', 'Build the Death Star, a classic set!', 3),
-        ('Saturn V', 'Launch astronauts to the moon!', 2),
-        ('Batcave', 'Fight crime in Gotham from the Batcave!', 4);
+        ('Yellow Delivery Truck', 'Wow, a delivery truck!', 99.99, 10, 1),
+        ('Death Star', 'Build the Death Star, a classic set!', 999.99, 20, 3),
+        ('Saturn V', 'Launch astronauts to the moon!', 399.99, 5, 2),
+        ('Batcave', 'Fight crime in Gotham from the Batcave!', 149.99, 2, 4);
 `;
 
 async function main() {

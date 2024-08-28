@@ -17,4 +17,4 @@ Items
 - price
 - quantity
 - image
-- categoryId
+- category_id
