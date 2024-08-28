@@ -14,6 +14,7 @@
       id="description" placeholder="Description" value="<%= item?.description || '' %>" /> 
       <% if (categories) { %>
       <select name="category_id" id="category_id">
+        <option selected disabled value="">--Category--</option>
         <% categories.map(category => { %>
         <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
         <% })%>

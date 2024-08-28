@@ -13,6 +13,9 @@
     <a href="/items/new">Add item</a>
     <% } %> <% if (category) { %>
     <a href="/categories/<%= category.id %>/update">Update category</a>
+    <form action="/categories/<%= category.id %>/delete" method="POST">
+      <button type="submit">Delete</button>
+    </form>
     <% } %> <% if (items) { %>
     <ul>
       <% items.map(item => { %>
