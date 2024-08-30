@@ -8,5 +8,26 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
+    <main>
+      <section class="hero-section">
+        <div class="column">
+          <h1>Welcome to the Lego Store!</h1>
+          <p>
+            Explore our available inventory and experience the magic of viewing,
+            adding, updating, and deleting items and categoires. What will you
+            choose to build? Please don't destroy my database pls thx much luv.
+          </p>
+          <div class="btns-container">
+            <a href="/categories" class="btn-link">Categories</a>
+            <a href="/items" class="btn-link">Items</a>
+          </div>
+        </div>
+        <div class="column">
+          <a href="/items/<%= item.id %>">
+            <img src="<%= item.image %>" alt="Saturn V" class="hero-image" />
+          </a>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

@@ -16,9 +16,12 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   background-color: var(--white);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: var(--black);
+  min-height: 100vh;
 }
 
 .banner {
@@ -60,4 +63,50 @@ nav {
 
 .nav-links a:hover {
   color: var(--dark-grey);
+}
+
+main {
+  flex-grow: 1;
+  /* height: 100%; */
+}
+
+.hero-section {
+  /* height: 100%; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 48px;
+}
+
+.hero-image {
+  max-width: 100%;
+}
+
+.hero-section .btns-container {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-link {
+  padding: 12px 24px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  border: 2px solid var(--orange);
+  background-color: var(--orange);
+  color: var(--dark-grey);
+}
+
+.btn-link:hover {
+  background-color: transparent;
 }

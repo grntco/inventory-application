@@ -13,6 +13,11 @@ async function getItemsByCategory(category_id) {
   return rows;
 }
 
+async function getFeaturedItem() {
+  const { rows } = await pool.query("SELECT * FROM items");
+  return rows[0];
+}
+
 async function insertItem(data) {
   const { name, description, price, image, category_id } = data;
   const values = [name, description, price, image, category_id];
@@ -62,6 +67,7 @@ async function deleteRecord(table, id) {
 module.exports = {
   getAllItems,
   getItemsByCategory,
+  getFeaturedItem,
   insertItem,
   updateItem,
   getAllCategories,
