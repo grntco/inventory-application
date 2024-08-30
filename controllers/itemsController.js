@@ -31,17 +31,7 @@ exports.createItemGet = async (req, res) => {
 exports.createItemPost = [
   upload.single("image"),
   async (req, res) => {
-    const data = req.body;
-    console.log(req.file);
-    if (req.file) {
-      const targetDir = path.join(__dirname, "..", "public", "images");
-      const targetPath = path.join(targetDir, req.file.originalname);
-
-      fs.mkdirSync(targetDir, { recursive: true });
-      fs.renameSync(req.file.path, targetPath);
-
-      data.image = path.join("/", "images", req.file.originalname);
-    }
+    const data = dataWithImageFilePath(req);
 
     await db.insertItem(data);
     res.redirect("/items");
@@ -55,15 +45,34 @@ exports.updateItemGet = async (req, res) => {
   res.render("createItem", { title: "Update Item", categories, item });
 };
 
-exports.updateItemPost = async (req, res) => {
-  const { id } = req.params;
-  const data = req.body;
-  await db.updateItem(id, data);
-  res.redirect("/items");
-};
+exports.updateItemPost = [
+  upload.single("image"),
+  async (req, res) => {
+    const { id } = req.params;
+    const data = dataWithImageFilePath(req);
+    await db.updateItem(id, data);
+    res.redirect("/items");
+  },
+];
 
 exports.deleteItemPost = async (req, res) => {
   const { id } = req.params;
   await db.deleteRecord("items", id);
   res.redirect("/items");
 };
+
+function dataWithImageFilePath(req) {
+  const data = req.body;
+
+  if (req.file) {
+    const targetDir = path.join(__dirname, "..", "public", "images");
+    const targetPath = path.join(targetDir, req.file.originalname);
+
+    fs.mkdirSync(targetDir, { recursive: true });
+    fs.renameSync(req.file.path, targetPath);
+
+    data.image = path.join("/", "images", req.file.originalname);
+  }
+
+  return data;
+}

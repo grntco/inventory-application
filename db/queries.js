@@ -23,10 +23,11 @@ async function insertItem(data) {
 }
 
 async function updateItem(id, data) {
-  const { name, description, category_id } = data;
+  const { name, description, price, quantity, image, category_id } = data;
+  const values = [id, name, description, price, quantity, image, category_id];
   await pool.query(
-    "UPDATE items SET name = $2, description = $3, category_id = $4 WHERE id = $1",
-    [id, name, description, category_id]
+    "UPDATE items SET name = $2, description = $3, price = $4, quantity = $5, image = $6, category_id = $7 WHERE id = $1",
+    values
   );
 }
 
