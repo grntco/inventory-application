@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="./styles.css" /> -->
+    <link rel="stylesheet" href="/styles.css" />    
     <title><%= title %></title>
   </head>
   <body>
@@ -13,7 +13,6 @@
       <input type="text" name="description"
       id="description" placeholder="Description" value="<%= item?.description || '' %>" /> 
       <input type="text" name="price" placeholder="Price" value="<%= item?.price || '' %>"/>
-      <input type="number" name="quantity" placeholder="Quantity" value="<% item?.quantity || '' %>">
       <label for="image">Upload image:</label>
       <input type="file" name="image" accept=".jpg, .jpeg, .png">
       <% if (categories) { %>

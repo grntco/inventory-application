@@ -14,19 +14,19 @@ async function getItemsByCategory(category_id) {
 }
 
 async function insertItem(data) {
-  const { name, description, price, quantity, image, category_id } = data;
-  const values = [name, description, price, quantity, image, category_id];
+  const { name, description, price, image, category_id } = data;
+  const values = [name, description, price, image, category_id];
   await pool.query(
-    "INSERT INTO items (name, description, price, quantity, image, category_id) VALUES($1, $2, $3, $4, $5, $6)",
+    "INSERT INTO items (name, description, price, image, category_id) VALUES($1, $2, $3, $4, $5)",
     values
   );
 }
 
 async function updateItem(id, data) {
-  const { name, description, price, quantity, image, category_id } = data;
-  const values = [id, name, description, price, quantity, image, category_id];
+  const { name, description, price, image, category_id } = data;
+  const values = [id, name, description, price, image, category_id];
   await pool.query(
-    "UPDATE items SET name = $2, description = $3, price = $4, quantity = $5, image = $6, category_id = $7 WHERE id = $1",
+    "UPDATE items SET name = $2, description = $3, price = $4, image = $5, category_id = $6 WHERE id = $1",
     values
   );
 }

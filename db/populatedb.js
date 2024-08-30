@@ -19,18 +19,17 @@ const SQL = `
         name VARCHAR ( 100 ),
         description VARCHAR ( 255 ),
         price NUMERIC ( 10, 2 ),
-        quantity INTEGER,
         image VARCHAR ( 100 ),
         category_id INTEGER,
         FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
     );
 
-    INSERT INTO items (name, description, price, quantity, category_id)
+    INSERT INTO items (name, description, price, image, category_id)
     VALUES 
-        ('Yellow Delivery Truck', 'Wow, a delivery truck!', 99.99, 10, 1),
-        ('Death Star', 'Build the Death Star, a classic set!', 999.99, 20, 3),
-        ('Saturn V', 'Launch astronauts to the moon!', 399.99, 5, 2),
-        ('Batcave', 'Fight crime in Gotham from the Batcave!', 149.99, 2, 4);
+        ('Yellow Delivery Truck', 'Wow, a delivery truck!', 99.99, '/images/delivery-truck.jpg', 1),
+        ('Death Star', 'Build the Death Star, a classic set!', 999.99, '/images/death-star.jpg', 3),
+        ('Saturn V', 'Launch astronauts to the moon!', 399.99, '/images/saturn-v.jpg', 2),
+        ('Batman Animated Series', 'Fight crime in Gotham!', 149.99, '/images/batman-animated-series.jpg', 4);
 `;
 
 async function main() {
