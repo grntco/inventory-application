@@ -9,23 +9,34 @@
   <body>
     <%- include('./partials/header.ejs')%>
     <main>
-      <section class="hero-section">
-        <div class="column">
-          <h1>Welcome to the Lego Store!</h1>
-          <p>
-            Explore our available inventory and experience the magic of viewing,
-            adding, updating, and deleting items and categoires. What will you
-            choose to build? Please don't destroy my database pls thx much luv.
-          </p>
-          <div class="btns-container">
-            <a href="/categories" class="btn-link">Categories</a>
-            <a href="/items" class="btn-link">Items</a>
+      <section class="section">
+        <div class="container">
+          <div class="row">
+            <div class="column">
+              <h1>Welcome to the Lego Store!</h1>
+              <p>
+                Explore our available inventory and experience the magic of
+                viewing, adding, updating, and deleting items and categories.
+                What will you choose to build?
+              </p>
+              <div class="btns-container">
+                <a href="/categories" class="btn-link orange">Categories</a>
+                <a href="/items" class="btn-link orange">Items</a>
+              </div>
+            </div>
+            <div class="column">
+              <div
+                class="item-image"
+                style="background-image: url('<%= item.image %>')"
+              >
+                <a href="/items/<%= item.id %>" class="item-image-link">
+                  <div class="item-image-link-text btn-link white">
+                    View Item
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="column">
-          <a href="/items/<%= item.id %>">
-            <img src="<%= item.image %>" alt="Saturn V" class="hero-image" />
-          </a>
         </div>
       </section>
     </main>

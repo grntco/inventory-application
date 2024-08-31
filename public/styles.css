@@ -6,8 +6,9 @@
 
 :root {
   --yellow: #fde047;
-  --red: #dc2626;
-  --blue: #3b82f6;
+  --red: rgb(220, 38, 38);
+  --blue: rgb(59, 130, 246);
+  --blue-opaque: rgb(59, 130, 246, 0.5);
   --orange: #fb923c;
   --white: #fafafa;
   --light-grey: #d4d4d4;
@@ -24,11 +25,29 @@ body {
   min-height: 100vh;
 }
 
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  line-height: 1.8rem;
+}
+
 .banner {
   padding: 8px;
   text-align: center;
   text-transform: uppercase;
-  font-weight: 1.2rem;
+  font-weight: 600;
   letter-spacing: 0.05rem;
   background-color: var(--blue);
   color: var(--white);
@@ -67,14 +86,20 @@ nav {
 
 main {
   flex-grow: 1;
-  /* height: 100%; */
 }
 
-.hero-section {
-  /* height: 100%; */
+.section {
+  padding: 96px 48px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
 }
 
 .column {
@@ -85,11 +110,47 @@ main {
   padding: 24px 48px;
 }
 
-.hero-image {
+.column .item-image {
   max-width: 100%;
+  height: 480px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  background-color: #fff;
 }
 
-.hero-section .btns-container {
+.column .item-image:hover {
+}
+
+.item-image-link {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.item-image-link:hover {
+  background-color: var(--blue-opaque);
+  cursor: pointer;
+}
+
+.item-image-link > :first-child {
+  display: none;
+}
+
+.item-image-link:hover > :first-child {
+  display: block;
+  /* z-index: 1; */
+}
+
+/* .item-image-link-text.hidden {
+  display: none;
+} */
+
+.section .btns-container {
   margin-top: 12px;
   display: flex;
   gap: 12px;
@@ -102,11 +163,29 @@ main {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.05rem;
-  border: 2px solid var(--orange);
+  border: 2px solid;
+  cursor: pointer;
+}
+
+.btn-link.orange {
+  border-color: var(--orange);
   background-color: var(--orange);
   color: var(--dark-grey);
 }
 
-.btn-link:hover {
+.btn-link.blue {
+  border-color: var(--blue);
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.btn-link.white {
+  border-color: var(--white);
+  background-color: var(--white);
+  color: var(--blue);
+}
+
+.btn-link.orange:hover,
+.btn-link.blue:hover {
   background-color: transparent;
 }
