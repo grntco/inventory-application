@@ -17,7 +17,9 @@
               <span class="price">$<%= item.price %></span>
               <p><%= item.description%></p>
               <div class="btns-container">
-                <a href="/items/<%= item.id %>/update" class="btn-link orange">Update item</a>
+                <a href="/items/<%= item.id %>/update" class="btn-link orange"
+                  >Update item</a
+                >
                 <form action="/items/<%= item.id %>/delete" method="POST">
                   <button type="submit" class="btn red">Delete</button>
                 </form>
@@ -39,5 +41,6 @@
         </div>
       </section>
     </main>
+    <%- include('./partials/footer.ejs')%>
   </body>
 </html>
