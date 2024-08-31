@@ -8,17 +8,38 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
-    <h1><%= title %></h1>
-    <a href="/categories/new">Add category</a>
-    <% if (categories) { %>
-    <ul>
-      <% categories.map(category => { %>
-      <li>
-        <h3><%= category.name %></h3>
-        <a href="/categories/<%= category.id %>">View category</a>
-      </li>
-      <% })%>
-    </ul>
-    <% } %>
+    <main>
+      <section>
+        <div class="container">
+          <div class="page-header">
+            <h1><%= title %></h1>
+            <p>Browse all the categories we have to offer.</p>
+            <div class="btns-container">
+              <a href="/categories/new" class="btn-link orange">Add category</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <% if (categories) { %>
+          <ul class="grid">
+            <% categories.map(category => { %>
+            <li class="grid-card category">
+              <div class="card-image">
+                <img src="<%= category.image %>" alt="<%= category.name %>" />
+              </div>
+              <h3><%= category.name %></h3>
+              <p><%= category?.description %></p>
+              <a href="/categories/<%= category.id %>" class="btn-link orange"
+                >View</a
+              >
+            </li>
+            <% })%>
+          </ul>
+          <% } %>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

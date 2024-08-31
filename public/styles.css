@@ -156,11 +156,12 @@ section {
   display: none;
 } */
 
-.section .btns-container {
+.btns-container {
   display: flex;
   gap: 12px;
 }
 
+.btn,
 .btn-link {
   /* margin-top: 24px; */
   display: inline-block;
@@ -176,15 +177,23 @@ section {
   cursor: pointer;
 }
 
+.btn.orange,
 .btn-link.orange {
   border-color: var(--orange);
   background-color: var(--orange);
   color: var(--dark-grey);
 }
 
+.btn.blue,
 .btn-link.blue {
   border-color: var(--blue);
   background-color: var(--blue);
+  color: var(--white);
+}
+
+.btn.red {
+  border-color: var(--red);
+  background-color: var(--red);
   color: var(--white);
 }
 
@@ -206,7 +215,13 @@ section {
 }
 
 .page-header {
+  /* display: flex;
+  flex-direction: column; */
   text-align: center;
+}
+
+.page-header-section .btn-link {
+  align-self: flex-end;
 }
 
 .grid {

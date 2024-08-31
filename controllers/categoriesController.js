@@ -2,14 +2,24 @@ const db = require("../db/queries");
 
 exports.allCategoriesGet = async (req, res) => {
   const categories = await db.getAllCategories();
-  res.render("categories", { title: "All Categories", categories });
+  const categoriesWithImages = await Promise.all(
+    categories.map(async (category) => {
+      const featuredItem = await db.getFeaturedItem(category.id);
+      category.image = featuredItem.image ?? "/images/lego.png";
+      return category;
+    })
+  );
+  res.render("categories", {
+    title: "All Categories",
+    categories: categoriesWithImages,
+  });
 };
 
 exports.singleCategoryGet = async (req, res) => {
   const { id } = req.params;
   const category = await db.getRecord("categories", id);
   const items = await db.getItemsByCategory(id);
-  res.render("items", { title: `Items for ${category.name}`, items, category });
+  res.render("items", { title: `Items in ${category.name}`, items, category });
 };
 
 exports.createCategoryGet = async (req, res) => {

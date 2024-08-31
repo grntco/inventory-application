@@ -13,9 +13,17 @@ async function getItemsByCategory(category_id) {
   return rows;
 }
 
-async function getFeaturedItem() {
-  const { rows } = await pool.query("SELECT * FROM items");
-  return rows[0];
+async function getFeaturedItem(category_id) {
+  let result;
+  if (category_id) {
+    result = await pool.query("SELECT * FROM items WHERE category_id = $1", [
+      category_id,
+    ]);
+  } else {
+    result = await pool.query("SELECT * FROM items");
+  }
+
+  return result.rows[0];
 }
 
 async function insertItem(data) {
