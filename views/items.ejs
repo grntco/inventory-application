@@ -8,24 +8,43 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
-    <h1><%= title %></h1>
-    <% if (items) { %>
-    <a href="/items/new">Add item</a>
-    <% } %> <% if (category) { %>
-    <a href="/categories/<%= category.id %>/update">Update category</a>
-    <form action="/categories/<%= category.id %>/delete" method="POST">
-      <button type="submit">Delete</button>
-    </form>
-    <% } %> <% if (items) { %>
-    <ul>
-      <% items.map(item => { %>
-      <li>
-        <h3><%= item.name %></h3>
-        <p><%= item.description%></p>
-        <a href="/items/<%= item.id %>">View item</a>
-      </li>
-      <% })%>
-    </ul>
-    <% } %>
+    <main>
+      <section class="page-header-section">
+        <div class="container">
+          <div class="page-header">
+            <h1><%= title %></h1>
+            <p>
+              <%= category ? category?.description : "Explore all items in our inventory!" %>
+            </p>
+            <% if (items) { %>
+            <a href="/items/new" class="btn-link orange">Add item</a>
+            <% } %> <% if (category) { %>
+            <a href="/categories/<%= category.id %>/update">Update category</a>
+            <form action="/categories/<%= category.id %>/delete" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <% if (items) { %>
+          <ul class="grid">
+            <% items.map(item => { %>
+            <li class="grid-card item">
+              <div class="card-image">
+                <img src="<%= item.image %>" alt="<%= item.name %>" />
+              </div>
+              <h3><%= item.name %></h3>
+              <span class="price">$<%= item.price %></span>
+              <a href="/items/<%= item.id %>" class="btn-link orange">View</a>
+            </li>
+            <% })%>
+          </ul>
+          <% } %>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
