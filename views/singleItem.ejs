@@ -8,12 +8,36 @@
   </head>
   <body>
     <%-include('./partials/header.ejs') %>
-    <img src="<%= item.image %>" />
-    <h1><%= item.name %></h1>
-    <p><%= item.description%></p>
-    <a href="/items/<%= item.id %>/update">Update item</a>
-    <form action="/items/<%= item.id %>/delete" method="POST">
-      <button type="submit">Delete</button>
-    </form>
+    <main>
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="column">
+              <h1><%= item.name %></h1>
+              <span class="price">$<%= item.price %></span>
+              <p><%= item.description%></p>
+              <div class="btns-container">
+                <a href="/items/<%= item.id %>/update" class="btn-link orange">Update item</a>
+                <form action="/items/<%= item.id %>/delete" method="POST">
+                  <button type="submit" class="btn red">Delete</button>
+                </form>
+              </div>
+            </div>
+            <div class="column">
+              <div
+                class="item-image"
+                style="background-image: url('<%= item.image %>')"
+              >
+                <!-- <a href="/items/<%= item.id %>" class="item-image-link">
+                  <div class="item-image-link-text btn-link white">
+                    View Item
+                  </div>
+                </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
