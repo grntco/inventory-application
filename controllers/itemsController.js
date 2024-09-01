@@ -50,6 +50,8 @@ exports.updateItemPost = [
   upload.single("image"),
   async (req, res) => {
     const { id } = req.params;
+    // delete previous image
+    await deleteItemImageFile(id);
     const data = dataWithImageFilePath(req);
     await db.updateItem(id, data);
     res.redirect("/items");
@@ -58,11 +60,7 @@ exports.updateItemPost = [
 
 exports.deleteItemPost = async (req, res) => {
   const { id } = req.params;
-  const item = await db.getRecord("items", id);
-  const imagePath = item.image;
-  if (imagePath) {
-    await fsPromises.rm(path.join(__dirname, "..", "public", imagePath));
-  }
+  await deleteItemImageFile(id);
   await db.deleteRecord("items", id);
   res.redirect("/items");
 };
@@ -81,4 +79,12 @@ function dataWithImageFilePath(req) {
   }
 
   return data;
+}
+
+async function deleteItemImageFile(id) {
+  const item = await db.getRecord("items", id);
+  const imagePath = item?.image;
+  if (imagePath) {
+    await fsPromises.rm(path.join(__dirname, "..", "public", imagePath));
+  }
 }
