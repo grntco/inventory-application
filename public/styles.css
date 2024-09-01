@@ -248,6 +248,11 @@ section {
   justify-content: flex-end;
 }
 
+.page-header-section :not(:first-child) {
+  justify-content: start;
+  /* align-items: start; */
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
