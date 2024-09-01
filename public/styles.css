@@ -10,6 +10,7 @@
   --blue: rgb(59, 130, 246);
   --blue-opaque: rgb(59, 130, 246, 0.5);
   --orange: #fb923c;
+  --green: #22c55e;
   --white: #fff;
   --off-white: #fafafa;
   --light-grey: #d4d4d4;
@@ -232,9 +233,7 @@ section {
 }
 
 .btn.orange:hover,
-.btn-link.orange:hover,
-.btn.blue:hover,
-.btn-link.blue:hover {
+.btn-link.orange:hover {
   background-color: transparent;
 }
 
@@ -303,6 +302,7 @@ section {
 input[type="text"],
 textarea,
 select {
+  outline: none;
   height: 2rem;
   width: 100%;
   padding: 4px 6px;
@@ -312,6 +312,16 @@ select {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   border-color: var(--light-grey);
   color: var(--black);
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--blue);
+}
+
+select {
+  color: var(--light-grey);
 }
 
 textarea {
@@ -325,11 +335,37 @@ textarea::placeholder {
   color: var(--light-grey);
 }
 
-.upload-image-container {
+.upload-image-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 2px dashed var(--blue);
   border-radius: 2px;
   height: 480px;
-  position: relative;
+}
+
+.upload-image-label:hover {
+  background-color: var(--blue-opaque);
+  cursor: pointer;
+}
+
+.upload-image-label.success {
+  background-color: var(--green);
+  border: 2px solid var(--green);
+}
+
+.upload-image-label .item-image-success-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.4rem;
+  color: var(--white);
+}
+
+.item-image-success-msg img {
+  height: 2rem;
 }
 
 footer {

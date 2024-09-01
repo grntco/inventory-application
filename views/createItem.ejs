@@ -21,7 +21,7 @@
                   id="description" placeholder="Description"><%= item?.description || '' %></textarea> 
                   <input type="text" name="price" placeholder="Price" value="<%= item?.price || '' %>"/>      
                   <% if (categories) { %>
-                    <select name="category_id" id="category_id">
+                    <select name="category_id" id="category_id" onchange="this.style.color = '#0a0a0a';">
                       <option selected disabled value="">--Category--</option>
                       <% categories.map(category => { %>
                       <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
@@ -33,30 +33,32 @@
               </div>
               <div class="column">
                 <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" style="display: none;">
-
-          
-                  
-                  
                   <% if (item) { %>
                   <div
                 class="item-image"
+                id="item-image"
                 style="background-image: url('<%= item.image %>')"
               >
-                <label for="image" class="item-image-link">
-                  
-                  <div class="item-image-link-text btn-link white">
+                <label for="image" class="upload-image-label" id="upload-image-label">
+                  <div class="item-image-link-text btn-link blue" id="upload-image-btn">
                     Change Image
+                  </div>
+                  <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;">
+                    <span>Image Uploaded!</span>
+                    <img src="/icons/check-circle.svg" alt="Check circle">
                   </div>
                 </label>
               </div>
               <% } else { %>
-                <div class="upload-image-container">
-                  <label for="image" class="upload-image-link item-image-link">
-                    <div class="upload-image-link-text btn-link blue">
+                  <label for="image" class="upload-image-label" id="upload-image-label">
+                    <div class="btn-link blue" id="upload-image-btn">
                       Upload Image
                     </div>
+                    <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;">
+                     
+                      <img src="/icons/check-circle.svg" alt="Check circle">
+                    </div>
                   </label>
-                </div>
                 <% } %>
               </div>
             </div>
@@ -66,4 +68,19 @@
     </main>
     <%- include('./partials/footer.ejs')%>
   </body>
+  <script>
+    const imageInput = document.getElementById('image');
+    const imageLabel = document.getElementById('upload-image-label');
+    const successMsg = document.getElementById('item-image-success-msg');
+    const btn = document.getElementById('upload-image-btn');
+    imageInput.addEventListener('change', () => {
+      if (imageInput.files.length > 0) {
+        const fileName = imageInput.files[0].name;
+        imageLabel.classList.add('success');
+        successMsg.textContent = `${fileName} uploaded!`
+        successMsg.style.display = 'flex';
+        btn.style.display = 'none';
+      }
+    });
+  </script>
 </html>

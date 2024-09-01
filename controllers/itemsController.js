@@ -1,6 +1,7 @@
 const db = require("../db/queries");
 const path = require("path");
 const fs = require("fs");
+const fsPromises = require("fs/promises");
 const multer = require("multer");
 
 const upload = multer({ dest: "uploads/" }); // Temporary storage
@@ -57,6 +58,11 @@ exports.updateItemPost = [
 
 exports.deleteItemPost = async (req, res) => {
   const { id } = req.params;
+  const item = await db.getRecord("items", id);
+  const imagePath = item.image;
+  if (imagePath) {
+    await fsPromises.rm(path.join(__dirname, "..", "public", imagePath));
+  }
   await db.deleteRecord("items", id);
   res.redirect("/items");
 };
