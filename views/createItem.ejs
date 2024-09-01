@@ -11,7 +11,7 @@
     <main>
       <section>
         <div class="container">
-          <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data" class="form">
+          <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="row">
               <div class="column">
                 <h1><%= title %></h1>
@@ -28,7 +28,7 @@
                       <% })%>
                     </select>
                   <% } %>
-                  <button type="submit" class="btn orange"><%= item ? "Done" : "Add" %></button>
+                  <button type="submit" class="btn orange"><%= item ? "Done" : "Create" %></button>
                   </div>
               </div>
               <div class="column">

@@ -238,19 +238,14 @@ section {
 }
 
 /* items/category pages */
-
 .page-header-section {
   padding-bottom: 0;
 }
 
-.page-header {
-  /* display: flex;
-  flex-direction: column; */
-  text-align: center;
-}
-
-.page-header-section .btn-link {
-  align-self: flex-end;
+.page-header-section .column .btns-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .grid {
