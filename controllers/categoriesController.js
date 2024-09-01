@@ -5,7 +5,7 @@ exports.allCategoriesGet = async (req, res) => {
   const categoriesWithImages = await Promise.all(
     categories.map(async (category) => {
       const featuredItem = await db.getFeaturedItem(category.id);
-      category.image = featuredItem.image ?? "/images/lego.png";
+      category.image = featuredItem?.image ?? "/images/lego.png";
       return category;
     })
   );

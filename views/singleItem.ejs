@@ -17,11 +17,13 @@
               <span class="price">$<%= item.price %></span>
               <p><%= item.description%></p>
               <div class="btns-container">
-                <a href="/items/<%= item.id %>/update" class="btn-link orange"
-                  >Update item</a
-                >
+                <a href="/items/<%= item.id %>/update" class="icon-link">
+                  <img src="/icons/edit.svg" alt="edit icon" />
+                </a>
                 <form action="/items/<%= item.id %>/delete" method="POST">
-                  <button type="submit" class="btn red">Delete</button>
+                  <button type="submit" class="icon-btn">
+                    <img src="/icons/trash.svg" alt="trash icon" />
+                  </button>
                 </form>
               </div>
             </div>

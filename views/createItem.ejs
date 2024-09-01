@@ -8,22 +8,62 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
-    <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data">
-     <input type="text" name="name" id="name" placeholder="Name" value="<%= item?.name || '' %>"/>
-      <input type="text" name="description"
-      id="description" placeholder="Description" value="<%= item?.description || '' %>" /> 
-      <input type="text" name="price" placeholder="Price" value="<%= item?.price || '' %>"/>
-      <label for="image">Upload image:</label>
-      <input type="file" name="image" accept=".jpg, .jpeg, .png">
-      <% if (categories) { %>
-        <select name="category_id" id="category_id">
-          <option selected disabled value="">--Category--</option>
-          <% categories.map(category => { %>
-          <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
-          <% })%>
-        </select>
-      <% } %>
-      <button type="submit"><%= item ? "Update" : "Done" %></button>
-    </form>
+    <main>
+      <section>
+        <div class="container">
+          <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data" class="form">
+            <div class="row">
+              <div class="column">
+                <h1><%= title %></h1>
+                <div class="form-inputs-container">
+                  <input type="text" name="name" id="name" placeholder="Name" value="<%= item?.name || '' %>"/>
+                  <textarea type="text" name="description"
+                  id="description" placeholder="Description"><%= item?.description || '' %></textarea> 
+                  <input type="text" name="price" placeholder="Price" value="<%= item?.price || '' %>"/>      
+                  <% if (categories) { %>
+                    <select name="category_id" id="category_id">
+                      <option selected disabled value="">--Category--</option>
+                      <% categories.map(category => { %>
+                      <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
+                      <% })%>
+                    </select>
+                  <% } %>
+                  <button type="submit" class="btn orange"><%= item ? "Done" : "Add" %></button>
+                  </div>
+              </div>
+              <div class="column">
+                <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" style="display: none;">
+
+          
+                  
+                  
+                  <% if (item) { %>
+                  <div
+                class="item-image"
+                style="background-image: url('<%= item.image %>')"
+              >
+                <label for="image" class="item-image-link">
+                  
+                  <div class="item-image-link-text btn-link white">
+                    Change Image
+                  </div>
+                </label>
+              </div>
+              <% } else { %>
+                <div class="upload-image-container">
+                  <label for="image" class="upload-image-link item-image-link">
+                    <div class="upload-image-link-text btn-link blue">
+                      Upload Image
+                    </div>
+                  </label>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+    <%- include('./partials/footer.ejs')%>
   </body>
 </html>
