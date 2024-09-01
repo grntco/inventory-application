@@ -9,13 +9,19 @@
   <body>
     <%- include('./partials/header.ejs')%>
     <main>
-      <section>
+      <section class="page-header-section">
         <div class="container">
-          <div class="page-header">
-            <h1><%= title %></h1>
-            <p>Browse all the categories we have to offer.</p>
-            <div class="btns-container">
-              <a href="/categories/new" class="btn-link orange">Add category</a>
+          <div class="row">
+            <div class="column">
+              <h1><%= title %></h1>
+              <p>Browse all the categories we have to offer.</p>
+            </div>
+            <div class="column">
+              <div class="btns-container">
+                <a href="/categories/new" class="btn-link orange"
+                  >Add category</a
+                >
+              </div>
             </div>
           </div>
         </div>
