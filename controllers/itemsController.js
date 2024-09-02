@@ -49,10 +49,31 @@ exports.updateItemGet = async (req, res) => {
 exports.updateItemPost = [
   upload.single("image"),
   async (req, res) => {
+    let data = req.body;
     const { id } = req.params;
-    // delete previous image
-    await deleteItemImageFile(id);
-    const data = dataWithImageFilePath(req);
+    const item = await db.getRecord("items", id);
+    const previousImage = item.image;
+    const previousImagePath = path.join("public", previousImage);
+
+    if (!req.file) {
+      try {
+        console.log("no new file, previous image should exist");
+        await fsPromises.access(previousImagePath);
+        data.image = previousImage;
+      } catch (err) {
+        console.log("no new file, previous image does not exist");
+        data.image = "";
+      }
+    } else {
+      try {
+        console.log("new image, old image should be deleted");
+        await fsPromises.access(previousImagePath);
+        await deleteItemImageFile(id);
+      } catch (err) {
+        console.log("new image, but no old image to delete");
+      }
+      data = dataWithImageFilePath(req);
+    }
     await db.updateItem(id, data);
     res.redirect("/items");
   },

@@ -276,9 +276,11 @@ section {
 }
 
 .card-image {
-  height: 300px;
+  min-height: 300px;
   display: flex;
   align-items: center;
+  text-align: center;
+  justify-content: center;
   /* max-width: 100%; */
   /* object-fit: contain; */
 }
@@ -289,6 +291,10 @@ section {
 
 .grid-card .btn-link {
   margin-top: auto;
+}
+
+.no-results-text {
+  text-align: center;
 }
 
 .form-inputs-container {

@@ -47,12 +47,16 @@
       </section>
       <section>
         <div class="container">
-          <% if (items) { %>
+          <% if (items.length > 0) { %>
           <ul class="grid">
             <% items.map(item => { %>
             <li class="grid-card item">
               <div class="card-image">
+                <% if (item.image) { %>
                 <img src="<%= item.image %>" alt="<%= item.name %>" />
+                <% } else { %>
+                <p>No image</p>
+                <% } %>
               </div>
               <h3><%= item.name %></h3>
               <span class="price">$<%= item.price %></span>
@@ -60,6 +64,8 @@
             </li>
             <% })%>
           </ul>
+          <% } else { %>
+          <p class="no-results-text">No results found.</p>
           <% } %>
         </div>
       </section>
