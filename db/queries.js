@@ -51,13 +51,22 @@ async function getAllCategories() {
   return rows;
 }
 
-async function insertCategory(name) {
-  await pool.query("INSERT INTO categories (name) VALUES ($1)", [name]);
+async function insertCategory(data) {
+  const { name, description } = data;
+  const values = [name, description];
+  await pool.query(
+    "INSERT INTO categories (name, description) VALUES ($1, $2)",
+    values
+  );
 }
 
 async function updateCategory(id, data) {
-  const { name } = data;
-  await pool.query("UPDATE categories SET name = $2 WHERE id = $1", [id, name]);
+  const { name, description } = data;
+  const values = [id, name, description];
+  await pool.query(
+    "UPDATE categories SET name = $2, description = $3 WHERE id = $1",
+    values
+  );
 }
 
 // generic

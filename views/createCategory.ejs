@@ -12,29 +12,32 @@
       <section>
         <div class="container">
           <form
-            action="/categories/<%= category ? `${category.id}/update` : 'new'%>"
+            action="/categories/<%= locals.category ? `${category.id}/update` : 'new'%>"
             method="POST"
             autocomplete="off"
           >
             <div class="row">
               <div class="column">
                 <h1><%= title %></h1>
+                <%- include("./partials/formErrors.ejs") %>
                 <div class="form-inputs-container">
                   <input
                     type="text"
                     name="name"
                     id="name"
                     placeholder="Name"
-                    value="<%= category?.name ?? '' %>"
+                    value="<%= locals.category?.name ?? '' %>"
                   />
                   <textarea
                     type="text"
                     name="description"
                     id="description"
                     placeholder="Description"
-                  ></textarea>
+                  >
+<%= locals.category?.description %></textarea
+                  >
                   <button type="submit" class="btn orange">
-                    <%= category ? "Done" : "Create" %>
+                    <%= locals.category ? "Done" : "Create" %>
                   </button>
                 </div>
               </div>
