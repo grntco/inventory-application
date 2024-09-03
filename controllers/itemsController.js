@@ -79,6 +79,7 @@ exports.createItemPost = [
       });
     }
     const data = dataWithImageFilePath(req);
+    purgeTempStorage();
 
     await db.insertItem(data);
     res.redirect("/items");
@@ -112,7 +113,7 @@ exports.updateItemPost = [
     }
 
     let data = req.body;
-    const previousImage = item.image ?? '';
+    const previousImage = item.image ?? "";
     const previousImagePath = path.join("public", previousImage);
 
     if (!req.file) {
@@ -129,6 +130,7 @@ exports.updateItemPost = [
         console.log("new image, old image should be deleted");
         await fsPromises.access(previousImagePath);
         await deleteItemImageFile(id);
+        purgeTempStorage();
       } catch (err) {
         console.log("new image, but no old image to delete");
       }
@@ -168,4 +170,25 @@ async function deleteItemImageFile(id) {
   if (imagePath) {
     await fsPromises.rm(path.join(__dirname, "..", "public", imagePath));
   }
+}
+
+function purgeTempStorage() {
+  fs.readdir("uploads", (err, files) => {
+    if (err) {
+      console.error("Unable to read directory:", err);
+      return;
+    }
+
+    files.forEach((file) => {
+      fs.rm(
+        path.join("uploads", file),
+        { recursive: true, force: true },
+        (err) => {
+          if (err) {
+            console.error(`Unable to delete ${file}:`, err);
+          }
+        }
+      );
+    });
+  });
 }
