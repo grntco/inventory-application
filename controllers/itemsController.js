@@ -2,13 +2,48 @@ const db = require("../db/queries");
 const path = require("path");
 const fs = require("fs");
 const fsPromises = require("fs/promises");
+const { body, validationResult } = require("express-validator");
 const multer = require("multer");
+const { title } = require("process");
 
 const upload = multer({ dest: "uploads/" }); // Temporary storage
 
+const validateItem = [
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide a category name.")
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Name must be between 3 and 100 characters."),
+  body("description")
+    .optional({ values: "falsy" })
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide a category description")
+    .isLength({ min: 10, max: 1000 })
+    .withMessage("Description must be between 10 and 1000 characters."),
+  body("price")
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide a price (without $).")
+    .isFloat({ min: 0.01, max: 10000.0 })
+    .withMessage("Please provide a valid price between 0.01 and 10000.00.")
+    .custom((value) => {
+      return /^\d+(\.\d{2})$/.test(value);
+    })
+    .withMessage("Please provide a valid price with two decimal places."),
+  body("category_id")
+    .optional({ values: "falsy" })
+    .trim()
+    .notEmpty()
+    .withMessage("Please select a category")
+    .isNumeric()
+    .withMessage("Please select a valid category from the listed options."),
+];
+
 exports.allItemsGet = async (req, res) => {
   const items = await db.getAllItems();
-  res.render("items", { title: "All Items", items, category: null });
+  res.render("items", { title: "All Items", items });
 };
 
 exports.singleItemGet = async (req, res) => {
@@ -26,12 +61,23 @@ exports.itemsByCategoryGet = async (req, res) => {
 
 exports.createItemGet = async (req, res) => {
   const categories = await db.getAllCategories();
-  res.render("createItem", { title: "Add Item", categories, item: null });
+  res.render("createItem", { title: "Add Item", categories });
 };
 
 exports.createItemPost = [
   upload.single("image"),
+  validateItem,
   async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const categories = await db.getAllCategories();
+
+      return res.status(400).render("createItem", {
+        title: "Create Item",
+        categories,
+        errors: errors.array(),
+      });
+    }
     const data = dataWithImageFilePath(req);
 
     await db.insertItem(data);
@@ -48,11 +94,25 @@ exports.updateItemGet = async (req, res) => {
 
 exports.updateItemPost = [
   upload.single("image"),
+  validateItem,
   async (req, res) => {
-    let data = req.body;
     const { id } = req.params;
     const item = await db.getRecord("items", id);
-    const previousImage = item.image;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const categories = await db.getAllCategories();
+
+      return res.status(400).render("createItem", {
+        title: "Update Item",
+        categories,
+        item,
+        errors: errors.array(),
+      });
+    }
+
+    let data = req.body;
+    const previousImage = item.image ?? '';
     const previousImagePath = path.join("public", previousImage);
 
     if (!req.file) {

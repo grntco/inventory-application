@@ -14,23 +14,23 @@
           <div class="row">
             <div class="column">
               <h1><%= title %></h1>
-              <% if (category) { %>
-              <p><%= category.description %></p>
+              <% if (locals.category) { %>
+              <p><%= locals.category.description %></p>
               <% } else { %>
               <p>Explore all items in our inventory!</p>
               <%} %>
             </div>
             <div class="column">
               <div class="btns-container">
-                <% if (category) { %>
+                <% if (locals.category) { %>
                 <a
-                  href="/categories/<%= category.id %>/update"
+                  href="/categories/<%= locals.category.id %>/update"
                   class="icon-link"
                 >
                   <img src="/icons/edit.svg" alt="trash icon" />
                 </a>
                 <form
-                  action="/categories/<%= category.id %>/delete"
+                  action="/categories/<%= locals.category.id %>/delete"
                   method="POST"
                 >
                   <button type="submit" class="icon-btn">

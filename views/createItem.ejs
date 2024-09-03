@@ -8,37 +8,37 @@
   </head>
   <body>
     <%- include('./partials/header.ejs')%>
-    <%- include("./partials/formErrors.ejs") %>
     <main>
       <section>
         <div class="container">
-          <form action="/items/<%= item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data" autocomplete="off">
+          <form action="/items/<%= locals.item ? `${item.id}/update` : 'new' %>" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="row">
               <div class="column">
                 <h1><%= title %></h1>
+                <%- include("./partials/formErrors.ejs") %>
                 <div class="form-inputs-container">
-                  <input type="text" name="name" id="name" placeholder="Name" value="<%= item?.name || '' %>"/>
+                  <input type="text" name="name" id="name" placeholder="Name" value="<%= locals.item?.name || '' %>"/>
                   <textarea type="text" name="description"
-                  id="description" placeholder="Description"><%= item?.description || '' %></textarea> 
-                  <input type="text" name="price" placeholder="Price" value="<%= item?.price || '' %>"/>      
+                  id="description" placeholder="Description"><%= locals.item?.description || '' %></textarea> 
+                  <input type="text" name="price" placeholder="Price" value="<%= locals.item?.price || '' %>"/>      
                   <% if (categories) { %>
                     <select name="category_id" id="category_id" onchange="this.style.color = '#0a0a0a';">
                       <option selected disabled value="">--Category--</option>
                       <% categories.map(category => { %>
-                      <option <%= item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
+                      <option <%= locals.item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
                       <% })%>
                     </select>
                   <% } %>
-                  <button type="submit" class="btn orange"><%= item ? "Done" : "Create" %></button>
+                  <button type="submit" class="btn orange"><%= locals.item ? "Done" : "Create" %></button>
                   </div>
               </div>
               <div class="column">
                 <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" style="display: none;">
-                  <% if (item) { %>
+                  <% if (locals.item) { %>
                   <div
                 class="item-image"
                 id="item-image"
-                style="background-image: url('<%= item.image %>')"
+                style="background-image: url('<%= locals.item.image %>')"
               >
                 <label for="image" class="upload-image-label" id="upload-image-label">
                   <div class="item-image-link-text btn-link blue" id="upload-image-btn">
@@ -55,8 +55,7 @@
                     <div class="btn-link blue" id="upload-image-btn">
                       Upload Image
                     </div>
-                    <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;">
-                     
+                    <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;"> 
                       <img src="/icons/check-circle.svg" alt="Check circle">
                     </div>
                   </label>

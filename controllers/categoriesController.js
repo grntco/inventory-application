@@ -41,7 +41,7 @@ exports.singleCategoryGet = async (req, res) => {
 
 exports.createCategoryGet = async (req, res) => {
   res.render("createCategory", {
-    title: "Add New Category" /*category: null*/,
+    title: "Add New Category",
   });
 };
 
@@ -71,9 +71,9 @@ exports.updateCategoryPost = [
   validateCategory,
   async (req, res) => {
     const { id } = req.params;
-    const category = await db.getRecord("categories", id);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      const category = await db.getRecord("categories", id);
       return res.status(400).render("createCategory", {
         title: "Update Category",
         category,
