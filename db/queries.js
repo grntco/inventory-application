@@ -1,7 +1,8 @@
 const pool = require("./pool");
 
+// Items
 async function getAllItems() {
-  const { rows } = await pool.query("SELECT * FROM items");
+  const { rows } = await pool.query("SELECT * FROM items ORDER BY id");
   return rows;
 }
 
@@ -20,7 +21,7 @@ async function getFeaturedItem(category_id) {
       category_id,
     ]);
   } else {
-    result = await pool.query("SELECT * FROM items");
+    result = await pool.query("SELECT * FROM items ORDER BY id");
   }
 
   return result.rows[0];
@@ -44,10 +45,9 @@ async function updateItem(id, data) {
   );
 }
 
-// getItemsBySearch(query)
-
+// Categories
 async function getAllCategories() {
-  const { rows } = await pool.query("SELECT * FROM categories");
+  const { rows } = await pool.query("SELECT * FROM categories ORDER BY id");
   return rows;
 }
 
@@ -69,7 +69,7 @@ async function updateCategory(id, data) {
   );
 }
 
-// generic
+// General
 async function getRecord(table, id) {
   const { rows } = await pool.query(`SELECT * FROM ${table} WHERE id = $1`, [
     id,

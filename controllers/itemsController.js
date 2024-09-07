@@ -4,9 +4,8 @@ const fs = require("fs");
 const fsPromises = require("fs/promises");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
-const { title } = require("process");
 
-const upload = multer({ dest: "uploads/" }); // Temporary storage
+const upload = multer({ dest: "uploads/" }); // temp storage
 
 const validateItem = [
   body("name")
@@ -25,7 +24,7 @@ const validateItem = [
   body("price")
     .trim()
     .notEmpty()
-    .withMessage("Please provide a price (without $).")
+    .withMessage("Please provide a price (without the $ sign).")
     .isFloat({ min: 0.01, max: 10000.0 })
     .withMessage("Please provide a valid price between 0.01 and 10000.00.")
     .custom((value) => {
@@ -38,7 +37,7 @@ const validateItem = [
     .notEmpty()
     .withMessage("Please select a category")
     .isNumeric()
-    .withMessage("Please select a valid category from the listed options."),
+    .withMessage("Please select a category from the options listed."),
 ];
 
 exports.allItemsGet = async (req, res) => {
@@ -118,21 +117,19 @@ exports.updateItemPost = [
 
     if (!req.file) {
       try {
-        console.log("no new file, previous image should exist");
         await fsPromises.access(previousImagePath);
         data.image = previousImage;
       } catch (err) {
-        console.log("no new file, previous image does not exist");
         data.image = "";
+        console.error("Error: ", err);
       }
     } else {
       try {
-        console.log("new image, old image should be deleted");
         await fsPromises.access(previousImagePath);
         await deleteItemImageFile(id);
         purgeTempStorage();
       } catch (err) {
-        console.log("new image, but no old image to delete");
+        console.error("Error: ", err);
       }
       data = dataWithImageFilePath(req);
     }

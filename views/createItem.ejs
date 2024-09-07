@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/lego.png">
     <link rel="stylesheet" href="/styles.css" />    
     <title><%= title %></title>
   </head>
@@ -22,7 +23,7 @@
                   id="description" placeholder="Description"><%= locals.item?.description || '' %></textarea> 
                   <input type="text" name="price" placeholder="Price" value="<%= locals.item?.price || '' %>"/>      
                   <% if (categories) { %>
-                    <select name="category_id" id="category_id" onchange="this.style.color = '#0a0a0a';">
+                    <select name="category_id" id="category_id" style="<%= locals.item?.category_id ? 'color: #0a0a0a;' : '' %>">
                       <option selected disabled value="">--Category--</option>
                       <% categories.map(category => { %>
                       <option <%= locals.item?.category_id === category.id ? "selected" : "" %> value="<%= category.id %>"><%= category.name %></option>
@@ -36,30 +37,31 @@
                 <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" style="display: none;">
                   <% if (locals.item) { %>
                   <div
-                class="item-image"
-                id="item-image"
-                style="background-image: url('<%= locals.item.image %>')"
-              >
-                <label for="image" class="upload-image-label" id="upload-image-label">
-                  <div class="item-image-link-text btn-link blue" id="upload-image-btn">
-                    Change Image
+                    class="item-image"
+                    id="item-image"
+                    style="background-image: url('<%= locals.item.image %>')"
+                  >
+                    <label for="image" class="upload-image-label" id="upload-image-label">
+                      <div class="item-image-link-text btn-link blue" id="upload-image-btn">
+                        Change Image
+                      </div>
+                      <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;">
+                        <span></span>
+                        <img src="/icons/check-circle.svg" alt="Check circle">
+                      </div>
+                    </label>
                   </div>
-                  <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;">
-                    <span>Image Uploaded!</span>
-                    <img src="/icons/check-circle.svg" alt="Check circle">
-                  </div>
-                </label>
-              </div>
-              <% } else { %>
-                  <label for="image" class="upload-image-label" id="upload-image-label">
-                    <div class="btn-link blue" id="upload-image-btn">
-                      Upload Image
-                    </div>
-                    <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;"> 
-                      <img src="/icons/check-circle.svg" alt="Check circle">
-                    </div>
-                  </label>
-                <% } %>
+                  <% } else { %>
+                    <label for="image" class="upload-image-label" id="upload-image-label">
+                      <div class="btn-link blue" id="upload-image-btn">
+                        Upload Image
+                      </div>
+                      <div class="item-image-success-msg" id="item-image-success-msg" style="display: none;"> 
+                        <span></span>
+                        <img src="/icons/check-circle.svg" alt="Check circle">
+                      </div>
+                    </label>
+                  <% } %>
               </div>
             </div>
           </form>
@@ -77,10 +79,18 @@
       if (imageInput.files.length > 0) {
         const fileName = imageInput.files[0].name;
         imageLabel.classList.add('success');
-        successMsg.textContent = `${fileName} uploaded!`
+        successMsg.firstChild.textContent = `${fileName} uploaded!`
         successMsg.style.display = 'flex';
         btn.style.display = 'none';
       }
     });
+
+
+    const categorySelect = document.getElementById('category_id');
+    categorySelect.addEventListener('change', () => {
+      if (categorySelect.value !== '') {
+        categorySelect.style.color = '#0a0a0a';
+      }
+    })
   </script>
 </html>
