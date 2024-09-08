@@ -4,9 +4,7 @@ This is a project for The Odin Project's Node.js course [to build an inventory a
 
 For languages/libraries/tools, I used JavaScript and Node/Express, EJS for templating, express-validator, and a PostgreSQL database accessed with node-postgres. I also used multer for file uploads and dotenv for accessing environment variables. To organize my project, I used the MVC pattern.
 
-Enjoy!
-
-**Live Demo:** link
+**Live Demo:** [https://lego-inventory-application.adaptable.app/](https://lego-inventory-application.adaptable.app/)
 
 ## Features
 * Create, update, and delete Lego items and categories.
